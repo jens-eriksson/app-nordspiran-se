@@ -1,0 +1,30 @@
+<div class="toolbar">
+    <button class="toolbar-item" (click)="save()">
+        <span class="far fa-save text-success"></span>
+        Save & Close
+     </button>
+     <button class="toolbar-item" (click)="cancel()">
+        <span class="fas fa-times text-danger"></span>
+        Cancel
+     </button>
+</div>
+<br>
+<div *ngIf="user">
+    <div class="form-group row">
+        <h5 class="col-auto">Email</h5>
+        <div class="col-lg-5 col-md-6">
+            <label>{{ user.email }}</label>
+        </div>
+    </div>
+    <div class="form-group row">
+        <h5 class="col-auto">Name</h5>
+        <div class="col-lg-5 col-md-6">
+            <input class="form-control" type="text" [(ngModel)]="displayName" />
+        </div>
+    </div>
+</div>
+
+
+<div class="text-danger">
+    {{ message }}
+</div>

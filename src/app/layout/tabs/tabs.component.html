@@ -1,0 +1,23 @@
+<div id="tabs-container">
+    <div id="toggle-sidebar" (click)="toggleSidebar()">
+        <span class="fas fa-bars"></span>
+    </div>    
+    <div class="tab" *ngFor="let tab of visableTabs" [ngClass]="{'active':isActive(tab) }" (click)="open(tab)">
+        <h6 *ngIf="tab.name" class="float-left pr-2 noselect">{{ tab.name }}</h6>
+        <button *ngIf="tab.closeable" class="close" (click)="close(tab)">
+            <span class="fas fa-times"></span>
+        </button>
+    </div>
+    <div id="toggle-tabs-dropdown" (click)="togglePageMenu()" *ngIf="tabsDropdown.length > 0">
+        <span *ngIf="!showTabsDropdown" class="fas fa-caret-down"></span>
+        <span *ngIf="showTabsDropdown" class="fas fa-caret-up"></span>
+    </div>
+    <div id="tabs-dropdown" [hidden]="!showTabsDropdown">
+        <div class="tab" *ngFor="let tab of tabsDropdown" [ngClass]="{'active':isActive(tab) }" (click)="open(tab)">
+            <h6 *ngIf="tab.name" class="float-left pr-2 noselect">{{ tab.name }}</h6>
+            <button *ngIf="tab.closeable" class="close" (click)="close(tab)">
+                <span class="fas fa-times noselect"></span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<h3>Cash Flow</h3>
+<div class="row px-3 mt-4">
+    <div class="col tab" (click)="select('ttm')" [ngClass]="{ 'selected':chartType === 'ttm' }">
+        <h6>TTM</h6>
+    </div>
+    <div class="col tab" (click)="select('quarter')" [ngClass]="{ 'selected':chartType === 'quarter' }">
+       <h6>Quarterly</h6>
+    </div>
+</div>
+<div id="cashflow-chart"></div>

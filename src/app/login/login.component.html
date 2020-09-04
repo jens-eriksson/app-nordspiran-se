@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">STOCKS</h4>       
+      <form>
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)]="email" required>
+        </div>
+        <div class="form-group ">
+          <input type="password" class="form-control" (value)="pwd" placeholder="Password" name="pwd" [(ngModel)]="pwd" required>
+        </div>
+        <div class="form-group ">
+          <button type="submit" class="form-control btn btn-primary" (click)="login()">Log In</button>
+        </div>
+      </form>
+      <br>
+      <a class="text-primary" (click)="resetPassword()">Forgot password?</a>
+      <br><br>
+      <p *ngIf="message" class="text-danger">
+        {{ message }}
+      </p>
+    </div>
+  </div>
+</div>

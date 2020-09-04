@@ -1,0 +1,16 @@
+<div class="custom-file">
+    <input type="file" class="custom-file-input" (change)="import($event)" accept=".xls,.xlsx" multiple>
+    <label class="custom-file-label" for="customFile">Borsdata files</label>
+</div>
+<hr>
+<div *ngFor="let imported of imports">
+    {{ imported.name }} {{ imported.updated | date:'yyyy-MM-dd'}}
+</div>
+<div *ngIf="message" class="text-danger">
+    {{ message }}
+</div>
+<div class="footer">
+    <hr>
+    <button class="btn btn-success" (click)="confirm()" [disabled]="imports.length === 0">Import</button>
+    <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+</div>

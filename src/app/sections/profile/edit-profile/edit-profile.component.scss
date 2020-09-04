@@ -1,0 +1,33 @@
+$item-color: rgb(99, 99, 99);
+
+.row {
+    height: 30px;
+}
+
+label {
+    padding: 6px 12px 6px 12px;
+    border: solid 1px transparent;
+    margin: 0px;
+}
+
+.toolbar {
+    display: flex;
+    flex-direction: row;
+    margin: 6px -15px 6px -15px;
+    padding: 5px;
+    border-bottom: solid 1px gainsboro;
+}
+
+.toolbar-item {
+    display: block;
+    background-color: transparent;
+    color: $item-color;
+    height: 36px;
+    padding: 6px;
+    margin-right: 10px;
+    border-radius: 3px;
+}
+
+.toolbar-item:hover {
+    color:black;
+}

@@ -1,0 +1,49 @@
+$sidebar-width: 15rem;
+$sidebar-heading-height: 60px;
+$tabs-height: 40px;
+$active-color: rgb(248, 249, 250);
+$unactive-color: rgb(136, 136, 136);
+$background-color: rgb(30, 30, 30);
+  
+#modal {
+    position: absolute;
+    width: calc(99vw - #{$sidebar-width});
+    height: 99vh;
+    top: 0;
+    bottom: 0;
+    left: $sidebar-width;
+    right: 0;
+    margin: auto;
+    padding: 10px;
+    z-index: 1000;
+    background-color:  #ffff;
+    -webkit-box-shadow: 2px 2px 10px 3px rgba(128,135,135,0.25);
+    -moz-box-shadow: 2px 2px 10px 3px rgba(128,135,135,0.25);
+    box-shadow: 2px 2px 10px 3px rgba(128,135,135,0.25);
+    overflow: auto;
+
+    .header {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        padding-top: 10px;
+        padding-right: 10px;
+
+        .close {
+            font-size: 16px;
+        }
+    }
+}
+
+#modal.sidebar-hidden {
+    left: 0;
+    width: 99vw;
+}
+
+#modal.mobile-view {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}

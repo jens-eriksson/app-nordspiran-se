@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col">
+        <h5>Income</h5>
+        <table class="table table-sm table-borderless" style="width: 300px;">
+            <tbody>
+                <tr>
+                    <th>Revenue TTM</th>
+                    <td>{{ company.revenueTTM | number:'1.0-0':'sv'}} {{ 'M' + company.reportCurrency }}</td>
+                </tr>
+                <tr>
+                    <th>Net Income TTM</th>
+                    <td>{{ company.netIncomeTTM | number:'1.0-0':'sv'}} {{ 'M' + company.reportCurrency }}</td>
+                </tr>
+                <tr>
+                    <th>Profit Margin TTM</th>
+                    <td>{{ company.profitMarginTTM | percent:'1.1-1':'sv'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        <h5>Balance sheet</h5>
+        <table class="table table-sm table-borderless" style="width: 300px;">
+            <tbody>
+                <tr>
+                    <th>Assets</th>
+                    <td>{{ company.assets | number:'1.0-0':'sv'}} {{ 'M' + company.reportCurrency }}</td>
+                </tr>
+                <tr>
+                    <th>Equity</th>
+                    <td>{{ company.equity | number:'1.0-0':'sv'}} {{ 'M' + company.reportCurrency }}</td>
+                </tr>
+                <tr>
+                    <th>Solidity</th>
+                    <td>{{ company.solidity | percent:'1.1-1':'sv'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        <h5>Cashflow</h5>
+        <table class="table table-sm table-borderless" style="width: 300px;">
+            <tbody>
+                <tr>
+                    <th>Operating Cashflow TTM</th>
+                    <td>{{ company.operatingCashflowTTM | number:'1.0-0':'sv'}} {{ 'M' + company.reportCurrency }}</td>
+                </tr>
+                <tr>
+                    <th>Free Cashflow TTM</th>
+                    <td>{{ company.freeCashflowTTM | number:'1.0-0':'sv'}} {{ 'M' + company.reportCurrency }}</td>
+                </tr>
+                <tr>
+                    <th>Free Cashflow Margin TTM</th>
+                    <td>{{ company.freeCashflowMargin | percent:'1.1-1':'sv'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        <h5>Valuation</h5>
+        <table class="table table-sm table-borderless" style="width: 300px;">
+            <tbody>
+                <tr>
+                    <th>Market Cap</th>
+                    <td>{{ company.marketCap | number:'1.0-0':'sv'}} {{ 'M' + company.reportCurrency }}</td>
+                </tr>
+                <tr>
+                    <th>Stock Price</th>
+                    <td>{{ company.stockPrice | number:'1.2-2':'sv'}} {{ company.reportCurrency }}</td>
+                </tr>
+                <tr>
+                    <th>P/E Current</th>
+                    <td>{{ company.peCurrent | number:'1.2-2':'sv'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

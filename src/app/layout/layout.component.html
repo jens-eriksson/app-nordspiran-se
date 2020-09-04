@@ -1,0 +1,51 @@
+<!-- Wrapper -->
+<div id="wrapper"  class="d-flex" [ngClass]="{'sidebar-hidden':!layoutState.showSidebar, 'mobile-view':layoutState.mobileView}">
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div id="sidebar-heading">
+            <h4 class="noselect">Nordspiran</h4>
+        </div>
+        <div id="sidebar-top">
+            <div class="group">
+                <ul class="sidebar-list">                    
+                    <li class="sidebar-list-item" (click)="activateSection(layoutState.stocks)" [ngClass]="{'active':activeSection.id === layoutState.stocks.id}">
+                        <span class="icon">
+                            <i class="fas fa-chart-line"></i>
+                        </span>
+                        <span class="noselect">
+                            Public Companies
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>   
+        
+        <div id="sidebar-bottom">
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item" (click)="activateSection(layoutState.profile)" [ngClass]="{'active':activeSection.id === layoutState.profile.id }">
+                    <span class="icon">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <span class="noselect">
+                        {{ userDisplayName }}
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+   <!-- Tabs -->
+    <app-tabs id="tabs"></app-tabs>
+
+    <!-- Page Content -->
+    <div id="page-content" (click)="appFocus()">
+        <div class="container-fluid">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+
+<!-- Modals -->
+<div id="backdrop" [hidden]="!showBackdrop"></div>
+<div id="modal-placeholder" #modalPlaceholder></div>
+
