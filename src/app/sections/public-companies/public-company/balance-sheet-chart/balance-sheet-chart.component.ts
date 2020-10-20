@@ -1,6 +1,5 @@
 import { LayoutProvider } from 'src/app/layout/layout.provider';
-import { Router } from '@angular/router';
-import { Company } from '../../../../data/company';
+import { Company } from './../../../../../../shared/company';
 import { ChartProvider } from '../../../../chart.provider';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -18,15 +17,15 @@ export class BalanceSheetChartComponent implements OnInit {
     this.google.charts.setOnLoadCallback(this.drawChart.bind(this));
   }
 
-  constructor(private chartProvider: ChartProvider, private layout: LayoutProvider) {
+  constructor(private chartProvider: ChartProvider) {
     this.google = this.chartProvider.getGoogle();
     this.google.charts.load('current', { packages: ['corechart'] });
   }
 
   ngOnInit(): void {
-    this.layout.windowResize.subscribe(() => {
+    window.onresize = () => {
       this.drawChart();
-    });
+    }
   }
 
   private drawChart() {

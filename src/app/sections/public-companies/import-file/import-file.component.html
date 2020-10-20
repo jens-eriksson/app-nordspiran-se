@@ -3,14 +3,26 @@
     <label class="custom-file-label" for="customFile">Borsdata files</label>
 </div>
 <hr>
-<div *ngFor="let imported of imports">
-    {{ imported.name }} {{ imported.updated | date:'yyyy-MM-dd'}}
+<div id="companies">
+    <table>
+        <tbody>
+            <tr *ngFor="let imported of imports">
+                <td>{{ imported.name }}</td>
+                <td style="text-align: right;">{{ imported.updated | date:'yyyy-MM-dd'}}</td>
+            </tr>  
+        </tbody>
+    </table>
 </div>
-<div *ngIf="message" class="text-danger">
-    {{ message }}
-</div>
+
 <div class="footer">
     <hr>
-    <button class="btn btn-success" (click)="confirm()" [disabled]="imports.length === 0">Import</button>
+    <button class="btn btn-success" (click)="ok()" [disabled]="imports.length !== fileCount">
+        <span *ngIf="imports.length === fileCount || !fileCount">Import</span>
+        <span *ngIf="imports.length !== fileCount && fileCount">...</span>
+    </button>
     <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+</div>
+
+<div id="message" *ngIf="message" class="text-danger">
+    {{ message }}
 </div>

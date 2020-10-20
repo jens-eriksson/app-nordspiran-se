@@ -105,3 +105,6 @@ dist
 
 # Mac files
 .DS_Store
+
+# Credientials
+service-account.json

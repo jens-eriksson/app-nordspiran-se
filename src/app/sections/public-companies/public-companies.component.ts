@@ -1,12 +1,14 @@
+import { List } from './../../../../shared/list';
+import { ListProvider } from './../../data/list.provider';
+import { PageStateProvider } from './../../data/page-state.provider';
 import { StockPricesProvider } from './../../data/stock-prices.provider';
 import { ModalProvider } from './../../layout/modal.provider';
 import { Router } from '@angular/router';
 import { LayoutProvider } from './../../layout/layout.provider';
 import { CompanyProvider } from './../../data/company.provider';
 import { Component, OnInit } from '@angular/core';
-import { Company } from '../../data/company';
-import { Subscription } from 'rxjs';
-
+import { Company } from '../../../../shared/company';
+import { PageState } from 'shared/page-state';
 
 @Component({
   selector: 'app-public-companies',
@@ -15,19 +17,40 @@ import { Subscription } from 'rxjs';
 })
 export class PublicCompaniesComponent implements OnInit {
   companies: Company[];
-  sortBy = 'investmentGrade';
-  sortOrder = 'desc';
-  subscpition: Subscription;
+  visableCompanies: Company[];
+  list: List;
+  lists: List[];
+  pageState: PageState = {
+    path: this.router.routerState.snapshot.url,
+    view: {
+      list: null,
+      sortBy: '-investmentGrade'
+    }
+  };
 
   constructor(
     private companyProvider: CompanyProvider,
     private stockPricesProvider: StockPricesProvider,
-    private layout: LayoutProvider,
+    private layoutProvider: LayoutProvider,
+    private pageStateProvider: PageStateProvider,
     private modal: ModalProvider,
-    private router: Router
+    private router: Router,
+    public listProvider: ListProvider
   ) {
-    this.subscpition = this.companyProvider.all(this.sortBy, this.sortOrder).subscribe(companies => {
-      this.companies = companies;
+    this.pageStateProvider.load().then(() => {
+      const state = this.pageStateProvider.getByPath(this.pageState.path);
+      if (state) {
+        this.pageState = state;
+      }
+      this.listProvider.getByUser().subscribe(lists => {
+        this.lists = lists;
+      });
+      this.listProvider.get(this.pageState.view.list).then(list => {
+        this.list = list;
+      });
+      this.companyProvider.listener().subscribe(companies => {
+        this.companies = companies;
+      });
     });
   }
 
@@ -36,12 +59,8 @@ export class PublicCompaniesComponent implements OnInit {
 
   open(company: Company) {
     const path = '/companies/' + company.id;
-    this.layout.registerPage({
-      id: company.id,
-      name: company.name,
-      paths: [path],
-      closeable: true
-    });
+    const tab = this.layoutProvider.newTab([path], company.name, true);
+    this.layoutProvider.openTab(tab);
     this.router.navigate([path]);
   }
 
@@ -51,25 +70,31 @@ export class PublicCompaniesComponent implements OnInit {
     });
   }
 
+  listChange(list: List) {
+    this.list = list ? this.lists.find(l => l.id == list.id) : list; 
+    this.pageState.view.list = this.list ? this.list.id : null;
+    this.pageStateProvider.set(this.pageState).then(state => {
+      this.pageState = state;
+    });
+  }
+
   delete(id) {
     this.companyProvider.delete(id);
     this.stockPricesProvider.delete(id);
   }
 
-  sort(sortBy) {
-    if (this.sortBy === sortBy) {
-      if (this.sortOrder === 'asc') {
-        this.sortOrder = 'desc';
-      } else if (this.sortOrder === 'desc') {
-        this.sortOrder = 'asc';
+  sort(sortBy: string) {
+    if (this.pageState.view.sortBy === sortBy) {
+      if (this.pageState.view.sortBy.startsWith('-')) {
+        this.pageState.view.sortBy = sortBy.substring(1, sortBy.length);
+      } else {
+        this.pageState.view.sortBy = '-' + sortBy;
       }
     } else {
-     this.sortOrder = 'asc';
+      this.pageState.view.sortBy = sortBy;
     }
-    this.sortBy = sortBy;
-    this.subscpition.unsubscribe();
-    this.subscpition = this.companyProvider.all(this.sortBy, this.sortOrder).subscribe(companies => {
-      this.companies = companies;
+    this.pageStateProvider.set(this.pageState).then(state => {
+      this.pageState = state;
     });
   }
 }

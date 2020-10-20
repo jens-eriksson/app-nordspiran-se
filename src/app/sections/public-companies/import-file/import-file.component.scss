@@ -15,3 +15,24 @@
         margin-right: 6px;
     }
 }
+
+#companies {
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    right: 0px;
+    height: 180px;
+    padding: 6px;
+    overflow-y: auto;
+}
+
+#message {
+    position: absolute;
+    bottom: 90px;
+    left: 0px;
+    right: 0px;
+    height: 30px;
+    padding: 6px;
+    overflow-y: auto;
+    z-index: 1000;
+}

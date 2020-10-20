@@ -1,5 +1,5 @@
 import { CompanyProvider } from './../../../data/company.provider';
-import { Company } from './../../../data/company';
+import { Company } from './../../../../../shared/company';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class PublicCompanyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.companyProvider.all('name', 'asc').subscribe(companies => {
+    this.companyProvider.listener().subscribe(companies => {
       this.companies = companies;
       this.selected = this.companies.find(c => c.id === this.route.snapshot.params.id);
     });

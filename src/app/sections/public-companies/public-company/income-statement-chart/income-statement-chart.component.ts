@@ -1,14 +1,14 @@
-import { LayoutProvider } from 'src/app/layout/layout.provider';
-import { Company } from '../../../../data/company';
+import { LayoutProvider } from '../../../../layout/layout.provider';
+import { Company } from '../../../../../../shared/company';
 import { ChartProvider } from '../../../../chart.provider';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-revenue-netincome-chart',
-  templateUrl: './revenue-netincome-chart.component.html',
-  styleUrls: ['./revenue-netincome-chart.component.scss']
+  selector: 'app-income-statement-chart',
+  templateUrl: './income-statement-chart.component.html',
+  styleUrls: ['./income-statement-chart.component.scss']
 })
-export class RevenueNetIncomeChartComponent implements OnInit {
+export class IncomeStatementChartComponent implements OnInit {
   chartType = 'ttm';
   private _company: Company;
   private google;
@@ -18,15 +18,15 @@ export class RevenueNetIncomeChartComponent implements OnInit {
     this.drawChart();
   }
 
-  constructor(private chartProvider: ChartProvider, private layout: LayoutProvider) {
+  constructor(private chartProvider: ChartProvider) {
     this.google = this.chartProvider.getGoogle();
     this.google.charts.load('current', { packages: ['corechart'] });
   }
 
   ngOnInit(): void {
-    this.layout.windowResize.subscribe(() => {
+    window.onresize = () => {
       this.drawChart();
-    });
+    }
   }
 
   selectChart(type) {
@@ -84,7 +84,7 @@ export class RevenueNetIncomeChartComponent implements OnInit {
       }
     };
 
-    const chart = new this.google.visualization.LineChart(document.getElementById('revenue-netincome-chart'));
+    const chart = new this.google.visualization.LineChart(document.getElementById('income-statement-chart'));
 
     chart.draw(dataTable, options);
   }
@@ -131,12 +131,8 @@ export class RevenueNetIncomeChartComponent implements OnInit {
       }
     };
 
-    const chart = new this.google.visualization.LineChart(document.getElementById('revenue-netincome-chart'));
+    const chart = new this.google.visualization.LineChart(document.getElementById('income-statement-chart'));
 
     chart.draw(dataTable, options);
-  }
-
-  resize() {
-    console.log('resize');
   }
 }

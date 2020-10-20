@@ -1,4 +1,4 @@
-import { Company } from './../../../../data/company';
+import { Company } from './../../../../../../shared/company';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

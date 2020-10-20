@@ -1,4 +1,4 @@
-import { LayoutState } from './../layout';
+import { Layout } from './../../../../shared/layout';
 import { LayoutProvider } from './../layout.provider';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,16 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./confirm.component.scss']
 })
 export class ConfirmComponent implements OnInit {
-  layoutState: LayoutState;
+  layout: Layout;
   message: string;
   confirm;
   cancel;
 
-  constructor(private layout: LayoutProvider) { }
+  constructor(private layoutProvider: LayoutProvider) { }
 
   ngOnInit(): void {
-    this.layout.layoutState.subscribe(layoutState => {
-      this.layoutState = layoutState;
+    this.layoutProvider.layout.subscribe(layout => {
+      this.layout = layout;
     });
   }
 }

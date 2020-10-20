@@ -1,6 +1,6 @@
-<div id="modal" [ngClass]="{'sidebar-hidden':!layoutState.showSidebar, 'mobile-view':layoutState.mobileView}" [style.maxWidth.px]="maxWidth" [style.maxHeight.px]="maxHeight">
+<div id="modal" [ngClass]="{'sidebar-hidden':!layout.state.showSidebar, 'mobile-view':layout.state.mobileView}" [style.maxWidth.px]="maxWidth" [style.maxHeight.px]="maxHeight">
     <div class="header">
-        <button class="close" (click)="close()">
+        <button class="close" (click)="cancel()">
             <span class="fas fa-times"></span>
         </button>
     </div>

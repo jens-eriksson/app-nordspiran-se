@@ -12,9 +12,10 @@ export class ModalProvider {
         this.isOpen = new BehaviorSubject<boolean>(false);
     }
 
-    public open(component, maxWidth?, maxHeight?): number {
+    public open(component, maxWidth?, maxHeight?, data?, confirmCallback?, cancelCallback?): number {
         const modalFactory = this.resolver.resolveComponentFactory(ModalComponent);
         const modal = this.placeholder.createComponent(modalFactory).instance;
+        modal.data = data;
         modal.content = component;
         if (maxWidth) {
             modal.maxWidth = maxWidth;
@@ -23,7 +24,16 @@ export class ModalProvider {
             modal.maxHeight = maxHeight;
         }
         const index = this.placeholder.length - 1;
-        modal.close = () => {
+        modal.cancel = () => {
+            if (cancelCallback) {
+                cancelCallback();
+            }
+            this.close(index);
+        };
+        modal.confirm = () => {
+            if(confirmCallback) {
+                confirmCallback();
+            }
             this.close(index);
         };
         if (this.placeholder.length > 0) {

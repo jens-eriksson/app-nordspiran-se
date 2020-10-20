@@ -1,18 +1,8 @@
-<app-toolbar></app-toolbar>
-<div *ngIf="selected" class="mt-2">
+<div *ngIf="selected" class="mt-3">
     <h1>{{ selected.name }}</h1>
     <hr>
     <app-overview [company]="selected"></app-overview>
     <hr>
-    <div class="row">
-        <div class="col chart">
-            <app-revenue-netincome-chart [company]="selected"></app-revenue-netincome-chart>
-        </div>
-        <div class="col chart">
-            <app-balance-sheet-chart [company]="selected"></app-balance-sheet-chart>
-        </div>
-    </div>
-    
     <div class="row">
         <div class="col chart">
             <app-price-pe-chart [company]="selected"></app-price-pe-chart>
@@ -21,7 +11,14 @@
             <app-lynch-chart [company]="selected"></app-lynch-chart>
         </div>
     </div>
-    
+    <div class="row">
+        <div class="col chart">
+            <app-income-statement-chart [company]="selected"></app-income-statement-chart>
+        </div>
+        <div class="col chart">
+            <app-balance-sheet-chart [company]="selected"></app-balance-sheet-chart>
+        </div>
+    </div>
     <div class="row">
         <div class="col chart">
             <app-cashflow-chart [company]="selected"></app-cashflow-chart>

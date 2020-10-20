@@ -1,10 +1,9 @@
-import { UserProvider } from './../../data/user.provider';
 import { LayoutProvider } from './../../layout/layout.provider';
-import { Page } from './../../layout/layout';
+import { Page, Tab } from './../../../../shared/layout';
 import { Router } from '@angular/router';
 import { AuthProvider } from './../../auth/auth.provider';
 import { Component, OnInit } from '@angular/core';
-import { User } from './../../data/user';
+import { User } from './../../../../shared/user';
 
 @Component({
   selector: 'app-profile',
@@ -17,21 +16,19 @@ export class ProfileComponent implements OnInit {
   constructor(
     private auth: AuthProvider,
     private router: Router,
-    private layout: LayoutProvider
+    private layoutProvider: LayoutProvider
     ) { }
 
   ngOnInit() {
-    const page: Page = {
-      id: '/profile',
-      name: 'My Profile',
-      paths: [
-          '/profile',
-          '/profile/edit-profile',
-          '/profile/change-password'
+    const tab = this.layoutProvider.newTab(
+      [
+        '/profile',
+        '/profile/edit-profile',
+        '/profile/change-password'
       ],
-      closeable: false
-    };
-    this.layout.registerPage(page);
+      'My Profile',
+      false);
+    this.layoutProvider.openTab(tab);
 
     this.auth.user.subscribe(user => {
       this.user = user;

@@ -1,4 +1,4 @@
-import { LayoutState } from './../layout/layout';
+import { Layout } from './../../../shared/layout';
 import { LayoutProvider } from './../layout/layout.provider';
 import { AuthProvider } from './../auth/auth.provider';
 import { Component, OnInit } from '@angular/core';
@@ -10,26 +10,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  appName = '';
   email: string;
   pwd: string;
   message: string;
-  layoutState: LayoutState;
 
   constructor(
     private router: Router,
     private auth: AuthProvider,
-    private layout: LayoutProvider
+    private layoutProvider: LayoutProvider
   ) {
   }
 
   ngOnInit() {
-    this.layout.layoutState.subscribe(layoutState => {
-      this.layoutState = layoutState;
+    this.layoutProvider.layout.subscribe(layout => {
+      if (layout) {
+        console.log(layout);
+        this.appName = layout.appName.toUpperCase();
+      }
     });
   }
 
   login() {
-    this.layout.showLoader();
+    this.layoutProvider.showLoader();
     if (!this.validate(this.email)) {
       this.message = 'Incorrect email address';
       return;
@@ -38,7 +41,7 @@ export class LoginComponent implements OnInit {
     .then(u => {
       this.auth.user.subscribe(user => {
         if (user) {
-          this.router.navigate([this.layoutState.activePath]);
+          this.router.navigate([this.layoutProvider.getActivePath()]);
         }
       });
     })

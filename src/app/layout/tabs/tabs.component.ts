@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { LayoutState, Page } from './../layout';
+import { Layout, Tab } from './../../../../shared/layout';
 import { LayoutProvider } from './../layout.provider';
 import { Component, OnInit, HostListener } from '@angular/core';
 
@@ -11,15 +11,15 @@ import { Component, OnInit, HostListener } from '@angular/core';
 export class TabsComponent implements OnInit {
   private readonly TAB_WIDTH = 200;
   private tabsComponent: HTMLElement;
-  layoutState: LayoutState;
+  layout: Layout;
   activePath: string;
-  tabs: Page[];
-  visableTabs: Page[] = [];
-  tabsDropdown: Page[] = [];
+  tabs: Tab[];
+  visableTabs: Tab[] = [];
+  tabsDropdown: Tab[] = [];
   showTabsDropdown = false;
 
   constructor(
-    private layout: LayoutProvider,
+    private layoutProvider: LayoutProvider,
     private router: Router
     ) {
   }
@@ -31,20 +31,20 @@ export class TabsComponent implements OnInit {
 
   ngOnInit() {
     this.tabsComponent = document.getElementById('tabs');
-    this.layout.layoutState.subscribe(layoutState => {
-      this.layoutState = layoutState;
-      this.activePath = layoutState.activePath;
-      this.tabs = this.layout.getActiveSection().pages;
+    this.layoutProvider.layout.subscribe(layout => {
+      this.layout = layout;
+      this.activePath = this.layoutProvider.getActivePath();
+      this.tabs = this.layoutProvider.getActiveSection().state.tabs;
       this.arrangeTabs();
     });
   }
 
-  open(page: Page) {
-    this.router.navigate([page.paths[0]]);
+  open(tab: Tab) {
+    this.router.navigate([tab.state.activePage]);
   }
 
-  close(page: Page) {
-    const path = this.layout.unregisterPage(page);
+  close(tab: Tab) {
+    const path = this.layoutProvider.closeTab(tab);
     this.router.navigate([path]);
   }
 
@@ -53,7 +53,7 @@ export class TabsComponent implements OnInit {
   }
 
   toggleSidebar() {
-    this.layout.toggleSidebar();
+    this.layoutProvider.toggleSidebar();
   }
 
   arrangeTabs() {
@@ -69,8 +69,8 @@ export class TabsComponent implements OnInit {
     this.showTabsDropdown = false;
   }
 
-  isActive(tab: Page) {
-    const path = tab.paths.find(p => p === this.activePath);
+  isActive(tab: Tab) {
+    const path = tab.pages.find(p => p.path === this.activePath);
     if (path) {
       return true;
     }

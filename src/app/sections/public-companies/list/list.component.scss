@@ -1,0 +1,28 @@
+select {
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    padding: 5px;
+    color: #495057;
+}
+
+input {
+    font-size: x-large;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 50px;
+    padding: 6px;
+    text-align: center;
+
+    .btn {
+        width: 49%;
+    }
+
+    .btn-success {
+        margin-right: 6px;
+    }
+}

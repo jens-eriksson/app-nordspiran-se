@@ -1,0 +1,39 @@
+button {
+    width: 120px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+table {
+    cursor: pointer;
+}
+
+#lists-dropdown {
+    position: absolute;
+    top: 38px;
+    left: 5px;
+    border: 1px solid gainsboro;
+    border-radius: 3px;
+    width: 250px;
+    height: 250px;
+    background-color: white;
+    padding: 0px 5px 0px 5px;
+}
+
+#lists {
+    position: absolute; 
+    overflow: auto;
+    height: 210px;
+    top: 0px; 
+    right: 0px; 
+    left: 0px; 
+    margin: 0px;
+}
+
+#new {
+    position: absolute; 
+    bottom: 0px; 
+    right: 0px; 
+    left: 0px; 
+    margin: 0px;
+}

@@ -1,19 +1,19 @@
 <!-- Wrapper -->
-<div id="wrapper"  class="d-flex" [ngClass]="{'sidebar-hidden':!layoutState.showSidebar, 'mobile-view':layoutState.mobileView}">
+<div id="wrapper"  class="d-flex" [ngClass]="{'sidebar-hidden':!layout.state.showSidebar, 'mobile-view':layout.state.mobileView}">
     <!-- Sidebar -->
     <div id="sidebar">
         <div id="sidebar-heading">
-            <h4 class="noselect">Nordspiran</h4>
+            <h4 class="noselect">{{ layout.appName }}</h4>
         </div>
         <div id="sidebar-top">
             <div class="group">
-                <ul class="sidebar-list">                    
-                    <li class="sidebar-list-item" (click)="activateSection(layoutState.stocks)" [ngClass]="{'active':activeSection.id === layoutState.stocks.id}">
+                <ul class="sidebar-list" *ngFor="let section of topSections">                    
+                    <li class="sidebar-list-item" (click)="activateSection(section)" [ngClass]="{'active':layout.state.activeSection === section.id}">
                         <span class="icon">
                             <i class="fas fa-chart-line"></i>
                         </span>
                         <span class="noselect">
-                            Public Companies
+                            {{ section.name }}
                         </span>
                     </li>
                 </ul>
@@ -21,13 +21,13 @@
         </div>   
         
         <div id="sidebar-bottom">
-            <ul class="sidebar-list">
-                <li class="sidebar-list-item" (click)="activateSection(layoutState.profile)" [ngClass]="{'active':activeSection.id === layoutState.profile.id }">
+            <ul class="sidebar-list" *ngFor="let section of bottomSections">
+                <li class="sidebar-list-item" (click)="activateSection(section)" [ngClass]="{'active':layout.state.activeSection === section.id }">
                     <span class="icon">
                         <i class="fas fa-user"></i>
                     </span>
                     <span class="noselect">
-                        {{ userDisplayName }}
+                        {{ section.name }}
                     </span>
                 </li>
             </ul>

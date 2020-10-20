@@ -1,10 +1,9 @@
 import { LayoutProvider } from 'src/app/layout/layout.provider';
 import { StockPricesProvider } from './../../../../data/stock-prices.provider';
-import { Router } from '@angular/router';
-import { Company } from '../../../../data/company';
+import { Company } from '../../../../../../shared/company';
 import { ChartProvider } from '../../../../chart.provider';
 import { Component, OnInit, Input } from '@angular/core';
-import { StockPrices } from 'src/app/data/stock-prices';
+import { StockPrices } from '../../../../../../shared/stock-prices';
 
 @Component({
   selector: 'app-price-pe-chart',
@@ -19,14 +18,13 @@ export class PricePeChartComponent implements OnInit {
   @Input()
   set company(val: Company) {
     this._company = val;
-    this.stockPricesProvider.get(val.id).subscribe(prices => {
+    this.stockPricesProvider.get(val.id).then(prices => {
       this._stockPrices = prices;
       this.select(this.chartType);
     });
   }
 
   constructor(private chartProvider: ChartProvider,
-              private layout: LayoutProvider,
               private stockPricesProvider: StockPricesProvider
   ) {
     this.google = this.chartProvider.getGoogle();
@@ -34,9 +32,9 @@ export class PricePeChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.layout.windowResize.subscribe(() => {
+    window.onresize = () => {
       this.drawChart();
-    });
+    }
   }
 
   select(type) {

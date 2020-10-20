@@ -2,7 +2,7 @@ import { UserProvider } from './../../../data/user.provider';
 import { Router } from '@angular/router';
 import { AuthProvider } from './../../../auth/auth.provider';
 import { Component, OnInit } from '@angular/core';
-import { User } from './../../../data/user';
+import { User } from './../../../../../shared/user';
 import { LayoutProvider } from 'src/app/layout/layout.provider';
 
 @Component({

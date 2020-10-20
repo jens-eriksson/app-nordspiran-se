@@ -1,13 +1,9 @@
 <div class="toolbar">
-    <button class="toolbar-item" (click)="edit()">
-        <span class="fas fa-edit"></span>
-        Edit
-     </button>
      <button class="toolbar-item" (click)="changePassword()">
         <span class="fas fa-key"></span>
         Change password
      </button>
-    <button class="toolbar-item ml-auto" (click)="logout()">
+    <button class="toolbar-item" (click)="logout()">
        <span class="fas fa-sign-out-alt"></span>
        Log out
     </button>
@@ -15,15 +11,12 @@
 <br>
 <div *ngIf="user">
     <div class="form-group row">
-        <h5 class="col-auto">Email</h5>
-        <div class="col-lg-5 col-md-6">
-            <label>{{ user.email }}</label>
+        <div class="col-auto">
+            <span class="fas fa-user fa-3x"></span>
         </div>
-    </div>
-    <div class="form-group row">
-        <h5 class="col-auto">Name</h5>
-        <div class="col-lg-5 col-md-6">
-            <label>{{ user.displayName }}</label>
+        <div class="col">
+            <h6>{{ user.displayName }}</h6>
+            <div>{{ user.email }}</div>
         </div>
     </div>
 </div>
