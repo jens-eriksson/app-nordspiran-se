@@ -1,5 +1,5 @@
 import * as firebase from 'firebase';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { Query } from './query';
 import { Data } from './../../../shared/data';
 
@@ -10,29 +10,6 @@ export abstract class DataProvider<T extends Data> {
   constructor(collection: string) {
     this.COLLECTION = collection;
     this.db = firebase.firestore();
-  }
-
-  public listener(query?: Query) {
-    let ref: any = this.db.collection(this.COLLECTION);
-    if (query) {
-      for (const condition of query.conditions) {
-        ref = ref.where(condition.field, condition.op, condition.value);
-      }
-      if (query.orderBy) {
-        ref = ref.orderBy(query.orderBy);
-      }
-    }
-
-    const subject = new Subject<T[]>();
-    ref.onSnapshot(snapshot => {
-      const data: T[] = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      subject.next(data);
-    });
-
-    return subject;
   }
 
   public async all(): Promise<T[]> {
@@ -60,7 +37,7 @@ export abstract class DataProvider<T extends Data> {
     }));
   }
 
-  public async get(id: string): Promise<T>{
+  public async get(id: string): Promise<T> {
     if (!id) {
       return null;
     }
@@ -93,5 +70,46 @@ export abstract class DataProvider<T extends Data> {
 
   public async delete(id: string): Promise<void> {
     await this.db.collection(this.COLLECTION).doc(id).delete();
+  }
+
+  public observe(id: string): Observable<T> {
+    if (!id) {
+      return null;
+    }
+    const ref = this.db.collection(this.COLLECTION).doc(id);
+
+    const subject = new Subject<T>();
+    ref.onSnapshot(snapshot => {
+      const data: any = {
+        id: id,
+        ...snapshot.data()
+      };
+      subject.next(data);
+    });
+
+    return subject;
+  }
+
+  public obseveCollection(query?: Query): Observable<T[]> {
+    let ref: any = this.db.collection(this.COLLECTION);
+    if (query) {
+      for (const condition of query.conditions) {
+        ref = ref.where(condition.field, condition.op, condition.value);
+      }
+      if (query.orderBy) {
+        ref = ref.orderBy(query.orderBy);
+      }
+    }
+
+    const subject = new Subject<T[]>();
+    ref.onSnapshot(snapshot => {
+      const data: T[] = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      subject.next(data);
+    });
+
+    return subject;
   }
 }

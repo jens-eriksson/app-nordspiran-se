@@ -31,7 +31,6 @@ export class LayoutProvider extends DataProvider<Layout>{
                 this._layout.state.mobileView = true;
                 this._layout.state.showSidebar = false;
             } else {
-                this._layout.state.showSidebar = true;
                 this._layout.state.mobileView = false;
             }
             this.save();
@@ -73,6 +72,7 @@ export class LayoutProvider extends DataProvider<Layout>{
             this._layout.id = uid;
         }
         localStorage.setItem(this.LAYOUT_KEY, JSON.stringify(this._layout));
+
         this.layout.next(this._layout);
         this.set(this._layout);
     }

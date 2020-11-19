@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { AuthProvider } from './../auth/auth.provider';
 import { List } from './../../../shared/list';
 import { DataProvider } from './data.provider';
@@ -11,8 +11,8 @@ export class ListProvider extends DataProvider<List> {
     super('lists');
   }
 
-  public getByUser(): Subject<List[]> {
-    return this.listener({conditions: [{ field: 'uid', op: '==', value: this.auth.uid()}]});
+  public getByUser(): Observable<List[]> {
+    return this.obseveCollection({conditions: [{ field: 'uid', op: '==', value: this.auth.uid()}]});
   }
 
   public set(list: List): Promise<List> {

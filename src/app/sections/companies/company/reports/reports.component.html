@@ -1,0 +1,29 @@
+<h3>Reports <span class="fas fa-edit float-right pointer" (click)="edit()"></span></h3>
+<table *ngIf="reports" class="table table-hover table-sm">
+    <thead>
+        <tr style="background-color: gainsboro; border-bottom: 1px solid black;">            
+            <td>Period</td>
+            <td style="text-align: center;">Revenue</td>
+            <td style="text-align: center;">Net Income</td>
+            <td style="text-align: center;">Profit Margin</td>
+            <td style="text-align: center;">Assets</td>
+            <td style="text-align: center;">Equity</td>
+            <td style="text-align: center;">Solidity</td>
+            <td class="d-none d-sm-table-cell" style="text-align: center;">Number of shares</td>
+            <td class="d-none d-sm-table-cell" style="text-align: center;">Market Cap</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let report of reports.periods"  [ngClass]="{'ready': ready(report), 'notready': !ready(report)}">
+            <td>{{ report.period }} ({{ report.type }})</td>
+            <td style="text-align: center;">{{ report.revenue | number:'1.0-0':'sv' }}</td>
+            <td style="text-align: center;">{{ report.netIncome | number:'1.0-0':'sv' }}</td>
+            <td style="text-align: center;">{{ report.profitMargin | percent:'1.1-1':'sv' }}</td>
+            <td style="text-align: center;">{{ report.assets | number:'1.0-0':'sv' }}</td>
+            <td style="text-align: center;">{{ report.equity | number:'1.0-0':'sv' }}</td>
+            <td style="text-align: center;">{{ report.solidity | percent:'1.1-1':'sv' }}</td>
+            <td class="d-none d-sm-table-cell" style="text-align: center;">{{ report.numberOfShares | number:'1.0-0':'sv' }}</td>
+            <td class="d-none d-sm-table-cell" style="text-align: center;">{{ report.marketCap | number:'1.0-0':'sv' }}</td>
+        </tr>
+    </tbody>
+</table>

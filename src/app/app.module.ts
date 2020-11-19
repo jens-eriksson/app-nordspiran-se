@@ -1,10 +1,12 @@
+import { DividensProvider } from './data/dividends.provider';
+import { ReportsProvider } from './data/reports.provider';
 import { ListProvider } from './data/list.provider';
 import { PageStateProvider } from './data/page-state.provider';
 import * as firebase from 'firebase';
 import { environment } from '../environments/environment';
 import { ChartProvider } from './chart.provider';
 import { StockPricesProvider } from './data/stock-prices.provider';
-import { PublicCompaniesModule } from './sections/public-companies/public-companies.module';
+import { CompaniesModule } from './sections/companies/companies.module';
 import { ExcelDataProvider } from './data/excel-data.provider';
 import { HttpClientModule } from '@angular/common/http';
 import { CompanyProvider } from './data/company.provider';
@@ -38,7 +40,7 @@ firebase.initializeApp(environment.firebase);
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    PublicCompaniesModule
+    CompaniesModule
   ],
   providers: [
     AuthProvider,
@@ -46,6 +48,8 @@ firebase.initializeApp(environment.firebase);
     UserProvider,
     CompanyProvider,
     StockPricesProvider,
+    ReportsProvider,
+    DividensProvider,
     ExcelDataProvider,
     ChartProvider,
     PageStateProvider,
