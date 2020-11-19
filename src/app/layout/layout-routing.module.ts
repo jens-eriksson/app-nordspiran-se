@@ -1,5 +1,5 @@
-import { PublicCompanyComponent } from './../sections/public-companies/public-company/public-company.component';
-import { PublicCompaniesComponent } from './../sections/public-companies/public-companies.component';
+import { CompanyComponent } from './../sections/companies/company/company.component';
+import { CompaniesComponent } from './../sections/companies/companies.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout.component';
@@ -15,8 +15,8 @@ export const ROUTES: Routes = [
     component: LayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', component: PublicCompaniesComponent },
-      { path: ':id', component: PublicCompanyComponent }
+      { path: '', component: CompaniesComponent },
+      { path: ':id', component: CompanyComponent }
     ]
   },
   { path: 'real-estate',

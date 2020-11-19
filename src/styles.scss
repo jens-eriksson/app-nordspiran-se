@@ -14,17 +14,6 @@ a {
     cursor: pointer;
   }
 
-table {
-  width: 100%;
-  tr {
-    border-bottom: 1px solid gainsboro;
-    td {
-      padding: 4px;
-    }
-  }
-  
-}
-
 
 /* The switch - the box around the slider */
 .switch {
@@ -107,4 +96,12 @@ input:checked + .slider:before {
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.pointer {
+  cursor: pointer;
 }

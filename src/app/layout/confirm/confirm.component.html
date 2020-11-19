@@ -1,4 +1,4 @@
-<div id="confirm" [ngClass]="{'sidebar-hidden':!layoutState.showSidebar, 'mobile-view':layoutState.mobileView}">
+<div id="confirm" [ngClass]="{'sidebar-hidden':!layout.state.showSidebar, 'mobile-view':layout.state.mobileView}">
     <div class="header">
         <button class="close" (click)="cancel()">
             <span class="fas fa-times"></span>

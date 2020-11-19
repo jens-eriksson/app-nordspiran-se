@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-auto py-2 pl-2 pr-1">
+        <button class="toolbar-item  d-none d-md-block" (click)="import()">
+            <span class="fas fa-file-import"></span>
+            Import
+         </button>
+    </div>
+    <div class="col-auto py-2 px-1">
+        <button class="toolbar-item  d-none d-md-block" (click)="toogleLists()">
+            <span class="fas fa-filter"></span>
+            <span *ngIf="list">{{ list.name }}</span>
+            <span *ngIf="!list">All</span>
+            <span class="fas fa-caret-down float-right"></span>
+         </button>
+         <div id="lists-dropdown" *ngIf="showLists">
+             <div id="lists">
+                <table class="table table-hover table-sm mb-0">
+                    <tbody>
+                        <tr>
+                            <td (click)="selectList(null)">All</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table *ngIf="lists" class="table table-hover table-sm mt-0">
+                    <tbody>
+                        <tr *ngFor="let list of lists">
+                            <td (click)="selectList(list)">{{ list.name }}</td>
+                            <td style="text-align: right;">
+                                <span class="fas fa-edit" (click)="editList(list)"></span>
+                                <span class="far fa-trash-alt ml-2" (click)="deleteList(list)"></span>
+                            </td>
+                        </tr>            
+                    </tbody>
+                </table>
+             </div>
+           <div id="new">
+            <table id="new" class="table table-hover table-sm">
+                <tbody>
+                    <tr>
+                        <td (click)="newList()"><span class="fas fa-plus"></span> New</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+           </div>
+        </div>
+    </div>
+</div>

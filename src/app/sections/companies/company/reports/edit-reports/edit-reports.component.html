@@ -1,0 +1,192 @@
+<div *ngIf="company" class="header">
+    <h1>{{ company.name}}</h1>
+    <div class="row">
+        <div class="col-auto py-2 pl-2 pr-1">
+            <button class="toolbar-item  d-none d-md-block" (click)="import()">
+                <span class="fas fa-file-import"></span>
+                Import
+             </button>
+        </div>
+        <div class="col-auto py-2 pl-2 pr-1">
+            <button class="toolbar-item  d-none d-md-block" (click)="calculate()">
+                <span class="fas fa-file-import"></span>
+                Recalculate
+             </button>
+        </div>
+    </div>
+</div>
+<div *ngIf="reports" class="reports">
+    <ul *ngFor="let r of reports.periods">
+        <li (click)="select(r)" [ngClass]="{'active':report.period === r.period, 'ready': ready(r)}"><span>{{ r.period }}  ({{ r.type }})</span></li> 
+    </ul>
+</div>
+<div *ngIf="report" class="report">
+    <div class="row">
+        <div class="col">
+            <table class="table table-sm table-borderless">
+                <tbody>
+                    <tr>
+                        <th>Revenue</th>
+                        <td><input class="form-control text-right" type="number" [(ngModel)]="report.revenue"></td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap">Net Income</th>
+                        <td><input class="form-control text-right" type="number" [(ngModel)]="report.netIncome"></td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap">Profit Margin</th>
+                        <td class="text-right"><span style="margin-right: 28px;">{{ report.profitMargin | percent:'1.1-1':'sv' }}</span></td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap">Assets</th>
+                        <td><input class="form-control text-right" type="number" [(ngModel)]="report.assets"></td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap">Equity</th>
+                        <td><input class="form-control text-right" type="number" [(ngModel)]="report.equity"></td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap">Solidity</th>
+                        <td class="nowrap"><span style="margin-right: 28px;">{{ report.solidity | percent:'1.1-1':'sv' }}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <table class="table table-sm table-borderless">
+                <tbody>
+                    <tr>
+                        <th class="nowrap">Operating Cashflow</th>
+                        <td><input class="form-control text-right" type="number" [(ngModel)]="report.operatingCashflow">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Investing Cashflow</th>
+                        <td><input class="form-control text-right" type="number" [(ngModel)]="report.investingCashflow">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap">Free Cashflow</th>
+                        <td class="nowrap"><span style="margin-right: 28px;">{{ report.freeCashflow | number:'1.0-0':'sv' }}</span></td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap">Financing Cashflow</th>
+                        <td><input class="form-control text-right" type="number" [(ngModel)]="report.financingCashflow">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap">Net Cashflow</th>
+                        <td class="nowrap"><span style="margin-right: 28px;">{{ report.netCashflow | number:'1.0-0':'sv' }}</span></td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap">Free Cashflow Margin</th>
+                        <td class="nowrap"><span style="margin-right: 28px;">{{ report.freeCashflowMargin | percent:'1.1-1':'sv' }}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <table class="table table-sm table-borderless">
+                <tbody>
+                    <tr>
+                        <th class="nowrap">Stock Price</th>
+                        <td><input class="form-control text-right" type="number" [(ngModel)]="report.stockPrice"></td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap">Number of shares</th>
+                        <td><input class="form-control text-right" type="number" [(ngModel)]="report.numberOfShares"></td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap">Market Cap</th>
+                        <td class="nowrap"><span style="margin-right: 28px;">{{ report.marketCap | number:'1.0-0':'sv' }}</span></td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap">Return on Equity</th>
+                        <td class="nowrap"><span style="margin-right: 28px;">{{ report.roe | percent:'1.1-1':'sv' }}</span></td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap">Return on Assets</th>
+                        <td class="nowrap"><span style="margin-right: 28px;">{{ report.roa | percent:'1.1-1':'sv' }}</span></td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap">P/E TTM</th>
+                        <td class="nowrap"><span style="margin-right: 28px;">{{ report.peTTM | number:'1.2-2':'sv' }}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <table class="table table-sm table-borderless">
+                <tbody>
+                    <tr>
+                        <th>Revenue TTM</th>
+                        <td><span style="margin-right: 28px;">{{ report.revenueTTM | number:'1.0-0':'sv' }}</span></td>
+                    </tr>
+                    <tr>
+                        <th>Net Income TTM</th>
+                        <td><span style="margin-right: 28px;">{{ report.netIncomeTTM | number:'1.0-0':'sv' }}</span></td>
+                    </tr>
+                    <tr>
+                        <th>Profit Margin TTM</th>
+                        <td><span style="margin-right: 28px;">{{ report.profitMarginTTM | percent:'1.1-1':'sv' }}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <table class="table table-sm table-borderless">
+                <tbody>
+                    <tr>
+                        <th>Operating Cashflow TTM </th>
+                        <td><span style="margin-right: 28px;">{{ report.operatingCashflowTTM | number:'1.0-0':'sv' }}</span></td>
+                    </tr>
+                    <tr>
+                        <th>Investing Cashflow TTM</th>
+                        <td><span style="margin-right: 28px;">{{ report.investingCashflowTTM | number:'1.0-0':'sv' }}</span></td>
+                    </tr>
+                    <tr>
+                        <th>Free Cashflow TTM</th>
+                        <td><span style="margin-right: 28px;">{{ report.freeCashflowTTM | number:'1.0-0':'sv' }}</span></td>
+                    </tr>
+                    <tr>
+                        <th>Financing Cashflow TTM</th>
+                        <td><span style="margin-right: 28px;">{{ report.financingCashflowTTM | number:'1.0-0':'sv' }}</span></td>
+                    </tr>
+                    <tr>
+                        <th>Net Cashflow TTM</th>
+                        <td><span style="margin-right: 28px;">{{ report.netCashflowTTM | number:'1.0-0':'sv' }}</span></td>
+                    </tr>                  
+                    <tr>
+                        <th class="nowrap">Free Cashflow Margin TTM</th>
+                        <td class="nowrap"><span style="margin-right: 28px;">{{ report.freeCashflowMarginTTM | percent:'1.1-1':'sv' }}</span></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <table class="table table-sm table-borderless">
+                <tbody>
+                    
+                    <tr>
+                        <th>Type</th>
+                        <td>
+                            <select class="form-control" [(ngModel)]="report.type">
+                                <option value="q">Quarter</option>
+                                <option value="y">Year / 4</option>
+                                <option value="p">Period</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <button class="btn btn-success" (click)="ok()">OK</button>
+    <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+</div>

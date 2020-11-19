@@ -1,0 +1,14 @@
+<h3>Stock Price & P/E</h3>
+<div id="price-pe-chart"></div>
+
+<div style="width: 210px; margin: auto; margin-bottom: 20px; max-width: -5px;">
+    <button (click)="setDays(30)" [ngClass]="{'btn-success': days === 30}">30d</button>
+    <button (click)="setDays(90)" [ngClass]="{'btn-success': days === 90}">90d</button>
+    <button (click)="setDays(255)" [ngClass]="{'btn-success': days === 255}">1y</button>
+    <button (click)="setDays(765)" [ngClass]="{'btn-success': days === 765}">3y</button>
+    <button (click)="setDays(1000000)" [ngClass]="{'btn-success': days === 1000000}">Max</button>
+</div>
+
+
+
+

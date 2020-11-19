@@ -1,0 +1,31 @@
+<div *ngIf="company" class="mt-3">
+    <h1>{{ company.name }}</h1>
+    <hr>
+    <app-overview [company]="company"></app-overview>
+    <hr>
+    <div class="row">
+        <div class="col chart">
+            <app-price-pe-chart [stockPrices]="stockPrices"></app-price-pe-chart>
+        </div>
+        <div class="col chart">
+            <app-lynch-chart [company]="company" [reports]="reports"></app-lynch-chart>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col chart">
+            <app-income-statement-chart [reports]="reports"></app-income-statement-chart>
+        </div>
+        <div class="col chart">
+            <app-balance-sheet-chart [reports]="reports"></app-balance-sheet-chart>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col chart">
+            <app-cashflow-chart [reports]="reports"></app-cashflow-chart>
+        </div>
+        <div class="col chart">
+            <app-dividend-chart [dividends]="dividends"></app-dividend-chart>
+        </div>
+    </div>
+    <app-reports [company]="company" [reports]="reports" [stockPrices]="stockPrices"></app-reports>
+</div>

@@ -1,7 +1,7 @@
 import { ModalProvider } from './modal.provider';
 import { Router } from '@angular/router';
 import { AuthProvider } from './../auth/auth.provider';
-import { LayoutState, SectionState, SectionGroupState } from './layout';
+import { Layout , Section, SectionGroup } from './../../../shared/layout';
 import { LayoutProvider } from './layout.provider';
 import { Component, OnInit, AfterViewInit, ViewChild, ViewContainerRef } from '@angular/core';
 
@@ -12,21 +12,23 @@ import { Component, OnInit, AfterViewInit, ViewChild, ViewContainerRef } from '@
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit, AfterViewInit {
-  layoutState: LayoutState;
-  activeSection: SectionState;
+  layout: Layout;
+  topSections: Section[];
+  bottomSections: Section[];
   userDisplayName = 'Profile';
   showBackdrop: boolean;
   @ViewChild('modalPlaceholder', { read: ViewContainerRef }) modalPlaceholder: ViewContainerRef;
 
   constructor(
-    private layout: LayoutProvider,
+    private layoutProvider: LayoutProvider,
     private modal: ModalProvider,
     private auth: AuthProvider,
     private router: Router
   ) {
-    this.layout.layoutState.subscribe(layoutState => {
-      this.layoutState = layoutState;
-      this.activeSection = this.layout.getActiveSection();
+    this.layoutProvider.layout.subscribe(layout => {
+      this.layout = layout;
+      this.topSections = layout.sections.filter(s => s.position === 'top');
+      this.bottomSections = layout.sections.filter(s => s.position === 'bottom');
     });
     this.modal.isOpen.subscribe(isOpen => {
       this.showBackdrop = isOpen;
@@ -46,24 +48,24 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   }
 
   toggleSidebar() {
-    this.layout.toggleSidebar();
+    this.layoutProvider.toggleSidebar();
   }
 
-  toggleSectionGroup(group: SectionGroupState) {
-    this.layout.toggleSectionGroup(group);
+  toggleSectionGroup(group: SectionGroup) {
+    this.layoutProvider.toggleSectionGroup(group);
   }
 
-  activateSection(section: SectionState) {
-    if (this.layoutState.mobileView) {
-      this.layout.hideSidebar();
+  activateSection(section: Section) {
+    if (this.layout.state.mobileView) {
+      this.layoutProvider.hideSidebar();
     }
 
-    this.router.navigate([section.activePath]);
+    this.router.navigate([this.layoutProvider.getActivePath(section)]);
   }
 
   appFocus() {
-    if (this.layoutState.mobileView) {
-      this.layout.hideSidebar();
+    if (this.layout.state.mobileView) {
+      this.layoutProvider.hideSidebar();
     }
   }
 

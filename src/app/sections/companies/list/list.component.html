@@ -1,0 +1,29 @@
+<div class="row m-0 mt-4">
+    <div class="col p-0">
+        <div class="form-group" >
+            <input type="text" class="form-control" [(ngModel)]="list.name" />
+        </div>
+    </div>
+</div>
+<div class="row m-0">
+    <div class="col p-0">
+        <select multiple style="width: 100%; height: 380px;" [(ngModel)]="selectedList1">
+            <option *ngFor="let company of list1" [value]="company.id" (dblclick)="select()">{{ company.name }}</option> 
+        </select>
+    </div>
+    <div class="col-auto">
+        <button style="margin-top: 130px;" (click)="select()" >-></button>
+        <br><br>
+        <button (click)="deselect()"><-</button>
+    </div>
+    <div class="col p-0">
+        <select multiple style="width: 100%; height: 380px;" [(ngModel)]="selectedList2">
+            <option *ngFor="let company of list2" [value]="company.id" (dblclick)="deselect()">{{ company.name }}</option> 
+        </select>
+    </div>
+</div>
+<div class="footer">
+    <button class="btn btn-success" (click)="confirm2()" [disabled]="list2.length == 0 || list.name.length == 0">OK</button>
+    <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+</div>
+

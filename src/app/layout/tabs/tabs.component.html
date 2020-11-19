@@ -1,8 +1,9 @@
 <div id="tabs-container">
     <div id="toggle-sidebar" (click)="toggleSidebar()">
         <span class="fas fa-bars"></span>
-    </div>    
+    </div>
     <div class="tab" *ngFor="let tab of visableTabs" [ngClass]="{'active':isActive(tab) }" (click)="open(tab)">
+        <span *ngIf="tab.icon" class="{{ tab.icon }} float-left  mr-2"></span>
         <h6 *ngIf="tab.name" class="float-left pr-2 noselect">{{ tab.name }}</h6>
         <button *ngIf="tab.closeable" class="close" (click)="close(tab)">
             <span class="fas fa-times"></span>

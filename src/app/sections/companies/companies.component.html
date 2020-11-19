@@ -1,0 +1,86 @@
+<app-toolbar [lists]="lists" [list]="list" (listChange)="listChange($event)"></app-toolbar>
+<table *ngIf="companies" class="table table-hover table-sm">
+    <thead>
+        <tr>
+            <th (click)="sort('name')" style="cursor: pointer; text-align: left">Company
+                <span *ngIf="pageState.view.sortBy === 'name'" class="fas fa-sort-down"></span>
+                <span *ngIf="pageState.view.sortBy === '-name'" class="fas fa-sort-up"></span>
+            </th>
+            <th class="d-none d-sm-table-cell" (click)="sort('updated')" style="cursor: pointer; text-align: center;">Updated
+                <span *ngIf="pageState.view.sortBy === 'updated'" class="fas fa-sort-down"></span>
+                <span *ngIf="pageState.view.sortBy === '-updated'" class="fas fa-sort-up"></span>
+            </th>
+            <th (click)="sort('stockPrice')" style="cursor: pointer; text-align: right;">Stock Price
+                <span *ngIf="pageState.view.sortBy === 'stockPrice'" class="fas fa-sort-down"></span>
+                <span *ngIf="pageState.view.sortBy === '-stockPrice'" class="fas fa-sort-up"></span>
+            </th>
+            <th class="d-none d-sm-table-cell" (click)="sort('lastDividend')" style="cursor: pointer; text-align: right;">Dividend
+                <span *ngIf="pageState.view.sortBy === 'lastDividend'" class="fas fa-sort-down"></span>
+                <span *ngIf="pageState.view.sortBy === '-lastDividend'" class="fas fa-sort-up"></span>
+            </th>
+            <th (click)="sort('peCurrent')" style="cursor: pointer; text-align: center;">P/E
+                <span *ngIf="pageState.view.sortBy === 'peCurrent'" class="fas fa-sort-down"></span>
+                <span *ngIf="pageState.view.sortBy === '-peCurrent'" class="fas fa-sort-up"></span>
+            </th>
+            <th class="d-none d-sm-table-cell" (click)="sort('profitMarginTTM')" style="cursor: pointer; text-align: center;">Profit Margin
+                <span *ngIf="pageState.view.sortBy === 'profitMarginTTM'" class="fas fa-sort-down"></span>
+                <span *ngIf="pageState.view.sortBy === '-profitMarginTTM'" class="fas fa-sort-up"></span>
+            </th>
+            <th class="d-none d-sm-table-cell" (click)="sort('roa')" style="cursor: pointer; text-align: center;">ROA
+                <span *ngIf="pageState.view.sortBy === 'roa'" class="fas fa-sort-down"></span>
+                <span *ngIf="pageState.view.sortBy === '-roa'" class="fas fa-sort-up"></span>
+            </th>
+            <th class="d-none d-sm-table-cell" (click)="sort('solidity')" style="cursor: pointer; text-align: center;">Solidity
+                <span *ngIf="pageState.view.sortBy === 'solidity'" class="fas fa-sort-down"></span>
+                <span *ngIf="pageState.view.sortBy === '-solidity'" class="fas fa-sort-up"></span>
+            </th>
+            <th class="d-none d-sm-table-cell" (click)="sort('investmentGrade')" style="cursor: pointer; text-align: center;">Grade 
+<<<<<<< HEAD:src/app/sections/public-companies/public-companies.component.html
+                <span *ngIf="sortBy === 'investmentGrade' && sortOrder === 'desc'" class="fas fa-sort-down"></span>
+                <span *ngIf="sortBy === 'investmentGrade' && sortOrder === 'asc'" class="fas fa-sort-up"></span>
+=======
+                <span *ngIf="pageState.view.sortBy === 'investmentGrade'" class="fas fa-sort-down"></span>
+                <span *ngIf="pageState.view.sortBy === '-investmentGrade'" class="fas fa-sort-up"></span>
+>>>>>>> develop:src/app/sections/companies/companies.component.html
+            </th>
+            <th class="d-none d-md-table-cell"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let company of companies | companyFilter: list : pageState.view.sortBy">
+            <td (click)="open(company)" style="cursor: pointer">
+                {{ company.name }}
+            </td>
+            <td class="d-none d-sm-table-cell" style="text-align: center;">
+                <span *ngIf="company.updated && company.updated.toDate">
+                    {{ company.updated.toDate() | date: 'yyyy-MM-dd' }}
+                </span>
+            </td>
+            <td style="text-align: right;">
+                {{ company.stockPrice | number:'1.2-2':'sv'}} {{ company.stockPriceCurrency }}
+            </td>
+            <td class="d-none d-sm-table-cell" style="text-align: right;">
+                {{ company.lastDividend | number:'1.2-2':'sv'}} {{ company.stockPriceCurrency }}
+            </td>
+            <td style="text-align: center;">
+                {{ company.peCurrent | number:'1.2-2':'sv'}}
+            </td>
+            <td class="d-none d-sm-table-cell" style="text-align: center;">
+                {{ company.profitMarginTTM | percent:'1.1-1':'sv'}}
+            </td>
+            <td class="d-none d-sm-table-cell" style="text-align: center;">
+                {{ company.roa | percent:'1.1-1':'sv'}}
+            </td>
+            <td class="d-none d-sm-table-cell" style="text-align: center;">
+                {{ company.solidity | percent:'1.1-1':'sv'}}
+            </td>
+            <td class="d-none d-sm-table-cell" style="text-align: center;">
+                {{ company.investmentGrade | number:'1.2-2':'sv'}}
+            </td>
+            <td class="d-none d-md-table-cell" style="cursor: pointer;">
+                <span *ngIf="!list" class="far fa-trash-alt" (click)="confirmDelete(company)"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+    

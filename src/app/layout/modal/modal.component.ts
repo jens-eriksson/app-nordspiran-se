@@ -1,4 +1,4 @@
-import { LayoutState } from './../layout';
+import { Layout } from './../../../../shared/layout';
 import { LayoutProvider } from './../layout.provider';
 import { Component, OnInit, ViewChild, ViewContainerRef, AfterViewInit, ComponentFactoryResolver, ChangeDetectorRef } from '@angular/core';
 
@@ -9,17 +9,19 @@ import { Component, OnInit, ViewChild, ViewContainerRef, AfterViewInit, Componen
 })
 export class ModalComponent implements OnInit, AfterViewInit {
   @ViewChild('modalContent', { read: ViewContainerRef }) private modalContent: ViewContainerRef;
-  layoutState: LayoutState;
+  layout: Layout;
   maxWidth;
   maxHeight;
   content;
-  close;
+  data;
+  confirm;
+  cancel;
 
-  constructor(private resolver: ComponentFactoryResolver, private layout: LayoutProvider, private cd: ChangeDetectorRef) { }
+  constructor(private resolver: ComponentFactoryResolver, private layoutProvider: LayoutProvider, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.layout.layoutState.subscribe(layoutState => {
-      this.layoutState = layoutState;
+    this.layoutProvider.layout.subscribe(layout => {
+      this.layout = layout;
     });
   }
 
@@ -27,7 +29,9 @@ export class ModalComponent implements OnInit, AfterViewInit {
     if (this.content) {
       const factory = this.resolver.resolveComponentFactory(this.content);
       const compRef = this.modalContent.createComponent(factory);
-      compRef.instance['close'] = this.close;
+      compRef.instance['cancel'] = this.cancel;
+      compRef.instance['confirm'] = this.confirm;
+      compRef.instance['data'] = this.data;
       this.cd.detectChanges();
     }
   }

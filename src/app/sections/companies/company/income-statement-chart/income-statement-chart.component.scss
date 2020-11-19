@@ -1,0 +1,15 @@
+.tab {
+    text-align: center;
+    border-bottom: 1px solid gainsboro;
+    padding: 5px;;
+    cursor: pointer;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.selected {
+    border-bottom: none;
+    border-top: 1px solid gainsboro;
+    border-left: 1px solid gainsboro;
+    border-right: 1px solid gainsboro;
+}

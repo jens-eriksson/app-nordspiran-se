@@ -1,0 +1,41 @@
+<div class="custom-file">
+    <input type="file" class="custom-file-input" (change)="import($event)" accept=".xls,.xlsx" multiple>
+    <label class="custom-file-label" for="customFile">Borsdata files</label>
+</div>
+<hr>
+<div id="companies">
+    <table *ngIf="companies.length > 0" class="table table-sm">
+        <thead>
+            <th></th>
+            <th></th>
+            <th style="text-align: center;">Year End</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let imported of companies">
+                <td>{{ imported.name }}</td>
+                <td style="text-align: right;">{{ imported.updated.toDate() | date:'yyyy-MM-dd'}}</td>
+                <td style="text-align: center;">
+                    <select class="form-control float-right" [(ngModel)]="imported.fiscalYearEnd" style="width: 80px;">
+                        <option [ngValue]="12">12</option>
+                        <option [ngValue]="9">9</option>
+                        <option [ngValue]="6">6</option>
+                        <option [ngValue]="3">3</option>
+                    </select>
+                </td>
+            </tr>  
+        </tbody>
+    </table>
+</div>
+
+<div class="footer">
+    <hr>
+    <button class="btn btn-success" (click)="ok()" [disabled]="companies.length !== fileCount">
+        <span *ngIf="companies.length === fileCount || !fileCount">Import</span>
+        <span *ngIf="companies.length !== fileCount && fileCount">...</span>
+    </button>
+    <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+</div>
+
+<div id="message" *ngIf="message" class="text-danger">
+    {{ message }}
+</div>
