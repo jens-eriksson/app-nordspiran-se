@@ -45,15 +45,15 @@ export function isReady(report: Report): boolean {
         return false;
     }
 
-    if(report.revenue &&
-       report.netIncome &&
-       report.assets &&
-       report.equity &&
-       report.numberOfShares &&
-       report.operatingCashflow &&
-       report.investingCashflow &&
-       report.financingCashflow &&
-       report.stockPrice) {
+    if(report.revenue || report.revenue === 0 &&
+       report.netIncome || report.netIncome === 0  &&
+       report.assets || report.assets === 0  &&
+       report.equity || report.equity === 0  &&
+       report.numberOfShares || report.numberOfShares === 0  &&
+       report.operatingCashflow || report.operatingCashflow === 0  &&
+       report.investingCashflow || report.investingCashflow === 0  &&
+       report.financingCashflow || report.financingCashflow === 0  &&
+       report.stockPrice || report.stockPrice === 0 ) {
         return true;
     }
 

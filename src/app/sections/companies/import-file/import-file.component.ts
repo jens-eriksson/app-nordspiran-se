@@ -139,10 +139,10 @@ export class ImportFileComponent implements OnInit {
     }
     //Calculate companies
     for (const company of this.companies) {
-      const reports = this.reports.find(r => r.id === company.id);
-      const prices = this.stockPrices.find(s => s.id === reports.id);
-      const dividends = this.dividends.find(d => d.id = company.id);
-      calculateCompany(company, getLatestReport(reports), prices.days[0], dividends.years[0]);
+      let r = this.reports.find(r => r.id === company.id);
+      let p = this.stockPrices.find(s => s.id === company.id);
+      let d = this.dividends.find(d => d.id === company.id);
+      calculateCompany(company, getLatestReport(r), p.days[0], d.years[0]);
     }
   }
 

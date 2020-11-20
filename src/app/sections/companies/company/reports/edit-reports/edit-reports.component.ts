@@ -32,19 +32,22 @@ export class EditReportsComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.companyProvider.observe(this.data.id).subscribe(company => {
+    const id = this.data.id;
+    this.report = this.data.report;
+
+    this.companyProvider.observe(id).subscribe(company => {
       this.company = company;
     });
     
-    this.stockPricesProvider.observe(this.data.id).subscribe(stockPrices => {
+    this.stockPricesProvider.observe(id).subscribe(stockPrices => {
       this.stockPrices = stockPrices;
     });
 
-    this.dividensProvider.observe(this.data.id).subscribe(dividends => {
+    this.dividensProvider.observe(id).subscribe(dividends => {
       this.dividends = dividends;
     })
 
-    this.reportsProvider.observe(this.data.id).subscribe(reports => {
+    this.reportsProvider.observe(id).subscribe(reports => {
       this.reports = reports;
       if(!this.report) {
         this.report = this.reports.periods[0];

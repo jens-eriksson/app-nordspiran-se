@@ -23,6 +23,11 @@
 <div *ngIf="report" class="report">
     <div class="row">
         <div class="col">
+            <h3 *ngIf="report">{{ report.period }}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
             <table class="table table-sm table-borderless">
                 <tbody>
                     <tr>

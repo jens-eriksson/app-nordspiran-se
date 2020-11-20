@@ -20,8 +20,8 @@ export class ReportsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  edit() {
-    this.modalProvider.open(EditReportsComponent, null, null, { id: this.company.id });
+  edit(report: Report) {
+    this.modalProvider.open(EditReportsComponent, null, null, { report, id: this.company.id });
   }
 
   ready(report: Report): boolean {

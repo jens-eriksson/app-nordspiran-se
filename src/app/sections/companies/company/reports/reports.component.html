@@ -1,4 +1,4 @@
-<h3>Reports <span class="fas fa-edit float-right pointer" (click)="edit()"></span></h3>
+<h3>Reports</h3>
 <table *ngIf="reports" class="table table-hover table-sm">
     <thead>
         <tr style="background-color: gainsboro; border-bottom: 1px solid black;">            
@@ -15,7 +15,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let report of reports.periods"  [ngClass]="{'ready': ready(report), 'notready': !ready(report)}">
-            <td>{{ report.period }} ({{ report.type }})</td>
+            <td class="pointer" (click)="edit(report)">{{ report.period }} ({{ report.type }})</td>
             <td style="text-align: center;">{{ report.revenue | number:'1.0-0':'sv' }}</td>
             <td style="text-align: center;">{{ report.netIncome | number:'1.0-0':'sv' }}</td>
             <td style="text-align: center;">{{ report.profitMargin | percent:'1.1-1':'sv' }}</td>
